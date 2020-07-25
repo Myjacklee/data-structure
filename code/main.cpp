@@ -5,29 +5,46 @@
 #include "stack.h"
 #include "queue.h"
 #include "vector.h"
+#include "algorithm.h"
 
 using namespace std;
 int main() {
-	vector<int> firstVector;
-	stack<int> firststack;
-	queue<int> firstQueue;
+	/*
+	KMP算法测试代码
+	*/
+	algorithm ar;
+	string text = "abcbcglx";
+	string pattern = "bcgl";
+	cout << ar.KMPsearch(text, pattern)<<endl;
+
+	//string s = "abcac";
+	//string s2 = "abcdabca";
+	//algorithm ar;
+	//int* next = new int[20];
+	////ababaaababaa
+	////ar.genNext(next,s);
+	//ar.bookNext(s, next);
+
+
 	/*
 	队列测试代码
 	*/
-	for (int i = 0; i < 10; i++) {
-		firstQueue.enQueue(i);
-	}
-	cout << "队列的长度为：" << firstQueue.getLength() << endl;
-	for (int i = 0; i < 10; i++) {
-		
-		cout << "成功删除 " << firstQueue.deQueue()<< " 个元素" << endl;
-	}
-	cout << "队列的长度为：" << firstQueue.getLength() << endl;
+	//queue<int> firstQueue;
+	//for (int i = 0; i < 10; i++) {
+	//	firstQueue.enQueue(i);
+	//}
+	//cout << "队列的长度为：" << firstQueue.getLength() << endl;
+	//for (int i = 0; i < 10; i++) {
+	//	
+	//	cout << "成功删除 " << firstQueue.deQueue()<< " 个元素" << endl;
+	//}
+	//cout << "队列的长度为：" << firstQueue.getLength() << endl;
 
 
 	/*
 	栈测试代码
 	*/
+	//stack<int> firststack;
 	//for (int i = 0; i < 10; i++) {
 	//	firststack.push(i);
 	//}
@@ -41,6 +58,7 @@ int main() {
 	/*
 	vector测试代码
 	*/
+	//vector<int> firstVector;
 	//for (int i = 0; i < 10; i++) {
 	//	firstVector.push_back(i);
 	//}
