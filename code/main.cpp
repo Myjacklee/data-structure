@@ -1,17 +1,69 @@
 ﻿// code.cpp : 此文件包含 "main" 函数。程序执行将在此处开始并结束。
 //
-
 #include "pch.h"
 #include <iostream>
-#include <stack>
-#include "vector.cpp"
+#include "stack.h"
+#include "queue.h"
+#include "vector.h"
+
 using namespace std;
 int main() {
 	vector<int> firstVector;
-	for (int i = 0; i < 20; i++) {
-		firstVector.push(i);
+	stack<int> firststack;
+	queue<int> firstQueue;
+	/*
+	队列测试代码
+	*/
+	for (int i = 0; i < 10; i++) {
+		firstQueue.enQueue(i);
 	}
-	cout << firstVector.size() << endl;
+	cout << "队列的长度为：" << firstQueue.getLength() << endl;
+	for (int i = 0; i < 10; i++) {
+		
+		cout << "成功删除 " << firstQueue.deQueue()<< " 个元素" << endl;
+	}
+	cout << "队列的长度为：" << firstQueue.getLength() << endl;
+
+
+	/*
+	栈测试代码
+	*/
+	//for (int i = 0; i < 10; i++) {
+	//	firststack.push(i);
+	//}
+	//cout << "当前栈顶元素为：" << firststack.top() << endl;
+	//for (int i = 0; i < 10; i++) {
+	//	cout << "成功弹出元素 " << firststack.pop() << endl;
+	//}
+
+
+
+	/*
+	vector测试代码
+	*/
+	//for (int i = 0; i < 10; i++) {
+	//	firstVector.push_back(i);
+	//}
+	//cout << firstVector.at(10) << endl;
+	//for (int i = 0; i < 20; i++) {
+	//	firstVector.push(i);
+	//}
+	//cout << firstVector.size() << endl;
+	//try {
+	//	for (int i = 0; i < 21; i++) {
+	//		cout << firstVector.pop() << endl;
+	//	}		
+	//}
+	//catch (range_error &e) {
+	//	cout << e.what() << endl;
+	//}
+	//try {
+	//	cout << firstVector.at(20)<<endl;
+	//}
+	//catch (range_error &e) {
+	//	cout << e.what() << endl;
+	//}
+	
 	return 0;
 }
 
