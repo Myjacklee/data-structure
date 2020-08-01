@@ -1,6 +1,10 @@
 #include "pch.h"
 #include <iostream>
+#include <string>
 #include "algorithm.h"
+#include "vector.h"
+#include "stack.h"
+#include <map>
 
 int algorithm::KMPsearch(string text,string pattern) {
 	if (text.length() < pattern.length()) {
@@ -69,6 +73,111 @@ void algorithm::bookNext(string pattern, int *next) {
 	}
 	std::cout << endl;
 }
+//huffman编码递归辅助函数
+void algorithm::huffmanCodeGenCode(treeNode* tree, string code, map<char, string> &res) {
+	if (tree->lchild == NULL && tree->rchild == NULL) {
+		res[tree->data] = code;
+	}
+	else {
+		huffmanCodeGenCode(tree->lchild, code + "1", res);
+		huffmanCodeGenCode(tree->rchild, code + "0", res);
+	}
+}
+//huffman编码
+void algorithm::huffmanCode(string input) {
+	map<char, int> countChar;
+	for (int i = 0; i < input.length(); i++) {
+		if (countChar.count(input.at(i)) == 0) {
+			countChar[input.at(i)] = 0;
+		}
+		countChar[input.at(i)]++;
+	}
+	cout << "输入的字符串为：" << endl << input << endl;
+	cout << "各个字符的出现次数如下" << endl;
+	for (map<char, int>::iterator it = countChar.begin(); it != countChar.end(); it++) {
+		cout << it->first << " : " << it->second << endl;
+	}
+	if (countChar.size() == 1) {
+		map<char, string> res;
+		res[input.at(0)] = "1";
+		cout << "编码结果为" << endl;
+		for (map<char, string>::iterator it = res.begin(); it != res.end(); it++) {
+			cout << it->first << " :" << it->second << endl;
+		}
+		cout << "对应输出为" << endl;
+		for (int i = 0; i < input.length(); i++) {
+			cout << res[input.at(i)];
+		}
+		cout << endl;
+		return;
+	}
+	vector<treeNode*> storage;
+	for (map<char, int>::iterator it = countChar.begin(); it != countChar.end(); it++) {
+		treeNode *temp=new treeNode();
+		temp->data = it->first;
+		temp->weight = it->second;
+		temp->lchild = NULL;
+		temp->rchild = NULL;
+		storage.push(temp);
+	}
+	treeNode *temp;
+	for (int i = 0; i < storage.size()-1; i++) {
+		for (int j = i + 1; j < storage.size(); j++) {
+			if (storage.at(i)->weight < storage.at(j)->weight) {
+				temp = storage.at(j);
+				storage.at(j) = storage.at(i);
+				storage.at(i) = temp;
+			}
+		}
+	}
+	cout << "排序后" << endl;
+	for (int i = 0; i < storage.size(); i++) {
+		cout << storage.at(i)->data << " :" << storage.at(i)->weight << endl;
+	}
+	while (storage.size() != 1) {
+		treeNode *newTreeNode=new treeNode();
+		newTreeNode->weight = storage.at(storage.size() - 1)->weight + storage.at(storage.size() - 2)->weight;
+		if (storage.at(storage.size() - 1)->weight < storage.at(storage.size() - 2)->weight) {
+			newTreeNode->lchild = storage.at(storage.size() - 1);
+			newTreeNode->rchild = storage.at(storage.size() - 2);
+		}
+		else {
+			newTreeNode->lchild = storage.at(storage.size() - 2);
+			newTreeNode->rchild = storage.at(storage.size() - 1);
+		}
+		storage.erase(storage.size() - 1);
+		storage.erase(storage.size() - 1);
+		int i;
+		for (i = 0; i < storage.size(); i++) {
+			if (storage.at(i)->weight > newTreeNode->weight) {
+				continue;
+			}
+			else {
+				break;
+			}
+		}
+		if (i == storage.size()||i==0) {
+			storage.push(newTreeNode);
+		}
+		else {
+			storage.push(newTreeNode, --i);
+		}
+	}
+	treeNode *output = storage.pop();
+	//左1右0进行编码
+	map<char, string> res;
+	huffmanCodeGenCode(output, "", res);
+	cout<<"编码结果为"<<endl;
+	for (map<char, string>::iterator it = res.begin(); it != res.end(); it++) {
+		cout << it->first << " :" << it->second << endl;
+	}
+	cout << "对应输出为" << endl;
+	for (int i = 0; i < input.length(); i++) {
+		cout << res[input.at(i)];
+	}
+	cout << endl;
+}
+
 algorithm::algorithm()
 {
 }

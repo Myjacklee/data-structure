@@ -23,5 +23,11 @@ private:
 			return *(this->vectorNode + location);
 		}
 	};
+	void erase(int location) {
+		
+	}
+	bool push(T data, int location) {
+		return false;
+	}
 };
 #endif

@@ -1,2 +1,11 @@
-﻿  main.cpp
+﻿  algorithm.cpp
+e:\考研\408\数据结构\代码实现\code\code\algorithm.cpp(16): warning C4018: “<”: 有符号/无符号不匹配
+e:\考研\408\数据结构\代码实现\code\code\algorithm.cpp(39): warning C4018: “<”: 有符号/无符号不匹配
+e:\考研\408\数据结构\代码实现\code\code\algorithm.cpp(62): warning C4018: “<”: 有符号/无符号不匹配
+e:\考研\408\数据结构\代码实现\code\code\algorithm.cpp(71): warning C4018: “<”: 有符号/无符号不匹配
+e:\考研\408\数据结构\代码实现\code\code\algorithm.cpp(89): warning C4018: “<”: 有符号/无符号不匹配
+e:\考研\408\数据结构\代码实现\code\code\algorithm.cpp(108): warning C4018: “<”: 有符号/无符号不匹配
+e:\考研\408\数据结构\代码实现\code\code\algorithm.cpp(175): warning C4018: “<”: 有符号/无符号不匹配
+  main.cpp
+  正在生成代码...
   code.vcxproj -> E:\考研\408\数据结构\代码实现\code\Debug\code.exe

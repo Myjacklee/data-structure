@@ -39,6 +39,27 @@ public:
 		*(vectorNode + vectorSize++) = data;
 		return true;
 	};
+	//指定位置插入元素
+	bool push(T data, int location) {
+		if (location < 0 || location >= vectorSize) {
+			throw range_error("index out of range");
+		}
+		if (vectorSize == initSize) {
+			T *newVector = new T[initSize * 2];
+			for (int i = 0; i < vectorSize; i++) {
+				*(newVector + i) = *(vectorNode + i);
+			}
+			free(vectorNode);
+			vectorNode = newVector;
+			initSize = initSize * 2;
+		}
+		for (int i = vectorSize; i > location; i--) {
+			at(i) = at(i - 1);
+		}
+		at(location) = data;
+		vectorSize += 1;
+		return true;
+	}
 	//弹出元素
 	T pop() {
 		if (vectorSize == 0) {
@@ -52,9 +73,9 @@ public:
 	int size() {
 		return vectorSize;
 	};
-	//返回指定位置的元素
-	T at(int location) {
-		if (location < 0 || location >= vectorSize) {
+	//返回指定位置的元素的引用
+	T& at(int location) {
+		if (location < 0 || location >= initSize) {
 			throw range_error("index out of range");
 		}
 		else {
@@ -67,6 +88,21 @@ public:
 		initSize = 10;
 		vectorSize = 0;
 	};
+	//删除指定位置的元素
+	void erase(int location) {
+		if (location < 0 || location >= vectorSize) {
+			throw range_error("index out of range");
+		}
+		else if(location==vectorSize-1){
+			vectorSize -= 1;
+		}
+		else {
+			for (int i = location; i < size(); i++) {
+				at(i) = at(i + 1);
+			}
+			vectorSize -= 1;
+		}
+	}
 };
 
 #endif
