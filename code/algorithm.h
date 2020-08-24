@@ -29,6 +29,10 @@ public:
 	int **genMap(int length,int weight);
 	//BFS查找单源最短路径,从0开始，长度为length的图，最大坐标下标为length-1
 	void BFS_MIN_Distance(int **Graph,int length, int u);
+	//Dijkstra求带权图最短路径
+	void Dijkstra(int **Graph, int length, int u);
+	//Dijkstra算法中寻找当前是否有还没有被访问的结点
+	int DijkstraFn1(bool *final, int *dist, int length);
 };
 
 #endif // ! _ALGORITHM_H_

@@ -8,6 +8,99 @@
 #include <cstdlib>
 #include <ctime>
 #include <map>
+#include <iomanip>
+int algorithm::DijkstraFn1(bool *final, int *dist,int length) {
+	int minNode=0;
+	bool isIn = false;
+	for (int i = 0; i < length; i++) {
+		if (final[i] == false && dist[minNode] > dist[i]) {
+			minNode = i;
+			isIn = true;
+		}
+	}
+	if (isIn) {
+		return minNode;
+	}
+	else {
+		return -1;
+	}
+}
+void algorithm::Dijkstra(int **Graph, int length, int u) {
+	//是否已找到最短路径
+	bool *final = new bool[length];
+	//当前最短路径长度
+	int *dist = new int[length];
+	//最短路径上的前驱结点
+	int *path = new int[length];
+	cout << "随机生成的无权图为：" << endl;
+	for (int i = 0; i < length; i++) {
+		for (int j = 0; j < length; j++) {
+			cout << setw(4)<<Graph[i][j] << " ";
+		}
+		cout << endl;
+	}
+	for (int i = 0; i < length; i++) {
+		dist[i] = INT_MAX;
+		path[i] = -1;
+		final[i] = false;
+	}
+	final[u] = true;
+	dist[u] = 0;
+	int nowNode = u;
+	while (true) {
+		for (int i = 0; i < length; i++) {
+			if ((!final[i])&&Graph[nowNode][i] != 0 && dist[nowNode] + Graph[nowNode][i] < dist[i]) {
+				dist[i] = dist[nowNode] + Graph[nowNode][i];
+				path[i] = nowNode;
+			}
+		}
+		int minNode=-1;
+		bool isIn = false;
+		for (int i = 0; i < length; i++) {
+			if (!final[i]) {
+				if (!isIn) {
+					minNode = i;
+					isIn = true;
+				}
+				if (dist[i] < dist[minNode]) {
+					minNode = i;
+				}
+			}
+		}
+		if (!isIn) {
+			break;
+		}
+		else {
+			final[minNode] = true;
+			nowNode = minNode;
+		}
+	}
+	stack<int> temp;
+	for (int i = 0; i < length; i++) {
+		if (dist[i] == INT_MAX) {
+			cout << "结点" << u << "到结点" << i << "没有路径" << endl;
+		}
+		else {
+			cout << "结点" << u << "到结点" << i << "的路径长度为" << dist[i] << endl;
+			int rout = i;
+			while (rout != -1) {
+				temp.push(rout);
+				rout = path[rout];
+			}
+			while (temp.size() != 1) {
+				cout << temp.pop() << "->";
+			}
+			cout << temp.pop() << endl;
+		}
+	}
+	for (int i = 0; i < length; i++) {
+		delete[]Graph[i];
+	}
+	delete[] Graph;
+	delete[] path;
+	delete[] dist;
+	delete[] final;
+}
 void algorithm::BFS_MIN_Distance(int **Graph,int length, int u) {
 	//当前结点是否被访问过
 	bool *visited = new bool[length];
@@ -61,6 +154,9 @@ void algorithm::BFS_MIN_Distance(int **Graph,int length, int u) {
 			cout << temp.pop()<<endl;
 		}		
 	}
+	delete[] visited;
+	delete[] path;	
+	delete[] from;
 	for (int i = 0; i < length; i++) {
 		delete[]Graph[i];
 	}
@@ -91,7 +187,7 @@ int **algorithm::genMap(int length,int weight) {
 					newMap[i][j] = 0;
 				}
 				else {
-					newMap[i][j] = rand() % 100;
+					newMap[i][j] = (rand() % 100)*(rand() % 2);
 				}
 			}
 		}

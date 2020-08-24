@@ -12,14 +12,16 @@ int main() {
 	/*
 	Dijkstra求带权图最短路径测试
 	*/
-	
+	algorithm ar;
+	int **newMap = ar.genMap(20, 1);
+	ar.Dijkstra(newMap, 20, 4);
 
 	/*
 	BFS广度优先遍历算法求无权图最短路径测试	
 	*/
-	algorithm ar;
-	int **newMap = ar.genMap(6,0);
-	ar.BFS_MIN_Distance(newMap, 6, 4);
+	//algorithm ar;
+	//int **newMap = ar.genMap(6,0);
+	//ar.BFS_MIN_Distance(newMap, 6, 4);
 
 	/*
 	huffman编码测试
