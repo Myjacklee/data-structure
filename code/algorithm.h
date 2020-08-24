@@ -33,6 +33,10 @@ public:
 	void Dijkstra(int **Graph, int length, int u);
 	//Dijkstra算法中寻找当前是否有还没有被访问的结点
 	int DijkstraFn1(bool *final, int *dist, int length);
+	//Floyd算法求带权图任意两个结点之间的最短路径
+	int Floyd(int **Graph, int length, int u);
+	//Floyd算法输出最短路径
+	void FloydPrint(int **path, int l, int r);
 };
 
 #endif // ! _ALGORITHM_H_

@@ -9,6 +9,62 @@
 #include <ctime>
 #include <map>
 #include <iomanip>
+void algorithm::FloydPrint(int **path,int l,int r) {
+	if (path[l][r] == -1) {
+		return;
+	}
+	else {
+		FloydPrint(path, l, path[l][r]);
+		cout << path[l][r] << "->";
+		FloydPrint(path, path[l][r], r);
+	}
+}
+int algorithm::Floyd(int **Graph, int length, int n) {
+	int **dist = new int*[length];
+	int **path = new int*[length];
+	for (int i = 0; i < length; i++) {
+		dist[i] = new int[length];
+		path[i] = new int[length];
+	}
+	cout << "随机生成的无权图为：" << endl;
+	for (int i = 0; i < length; i++) {
+		for (int j = 0; j < length; j++) {
+			//cout << setw(5) << Graph[i][j];
+			cout << setw(4) << ((Graph[i][j] == INT_MAX) ? 0 : Graph[i][j]) << " ";
+		}
+		cout << endl;
+	}
+	for (int i = 0; i < length; i++) {
+		for (int j = 0; j < length; j++) {
+			dist[i][j] = Graph[i][j];
+			path[i][j] = -1;
+		}
+	}
+	for (int i = 0; i < length; i++) {
+		for (int j = 0; j < length; j++) {
+			for (int k = 0; k < length; k++) {
+				if (dist[j][i]!=INT_MAX&&dist[i][k]!=INT_MAX&&dist[j][k] > dist[j][i] + dist[i][k]) {
+					dist[j][k] = dist[j][i] + dist[i][k];
+					path[j][k] = i;
+				}
+			}
+		}
+	}
+	for (int i = 0; i < length; i++) {
+		for (int j = 0; j < length; j++) {
+			if (dist[i][j] == INT_MAX) {
+				cout << "结点" << i << "到结点" << j << "没有任何路径" << endl;
+			}
+			else {
+				cout << "结点" << i << "到结点" << j << "的路径长度为" << dist[i][j] << endl;
+				cout << i << "->";
+				FloydPrint(path, i, j);
+				cout << j << endl;
+			}
+		}
+	}
+	return 1;
+}
 int algorithm::DijkstraFn1(bool *final, int *dist,int length) {
 	int minNode=0;
 	bool isIn = false;
@@ -35,7 +91,7 @@ void algorithm::Dijkstra(int **Graph, int length, int u) {
 	cout << "随机生成的无权图为：" << endl;
 	for (int i = 0; i < length; i++) {
 		for (int j = 0; j < length; j++) {
-			cout << setw(4)<<Graph[i][j] << " ";
+			cout << setw(4)<<((Graph[i][j]==INT_MAX)?0:Graph[i][j]) << " ";
 		}
 		cout << endl;
 	}
@@ -49,7 +105,7 @@ void algorithm::Dijkstra(int **Graph, int length, int u) {
 	int nowNode = u;
 	while (true) {
 		for (int i = 0; i < length; i++) {
-			if ((!final[i])&&Graph[nowNode][i] != 0 && dist[nowNode] + Graph[nowNode][i] < dist[i]) {
+			if ((!final[i])&&Graph[nowNode][i] != 0&&Graph[nowNode][i] != INT_MAX && dist[nowNode] + Graph[nowNode][i] < dist[i]) {
 				dist[i] = dist[nowNode] + Graph[nowNode][i];
 				path[i] = nowNode;
 			}
@@ -187,7 +243,13 @@ int **algorithm::genMap(int length,int weight) {
 					newMap[i][j] = 0;
 				}
 				else {
-					newMap[i][j] = (rand() % 100)*(rand() % 2);
+					if (rand() % 2 == 1) {
+						newMap[i][j] = rand() % 100;
+					}
+					else {
+						newMap[i][j] = INT_MAX;
+					}
+					//newMap[i][j] = (rand() % 100)*(rand() % 2);
 				}
 			}
 		}

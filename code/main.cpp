@@ -10,11 +10,18 @@
 using namespace std;
 int main() {
 	/*
-	Dijkstra求带权图最短路径测试
+	Floyed算法求带权图任意两点之间的最短路径
 	*/
 	algorithm ar;
 	int **newMap = ar.genMap(20, 1);
-	ar.Dijkstra(newMap, 20, 4);
+	ar.Floyd(newMap, 20, 4);
+
+	/*
+	Dijkstra求带权图最短路径测试
+	*/
+	//algorithm ar;
+	//int **newMap = ar.genMap(20, 1);
+	//ar.Dijkstra(newMap, 20, 4);
 
 	/*
 	BFS广度优先遍历算法求无权图最短路径测试	
