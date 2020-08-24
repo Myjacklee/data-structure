@@ -10,12 +10,24 @@
 using namespace std;
 int main() {
 	/*
-	huffman编码测试
+	Dijkstra求带权图最短路径测试
+	*/
+	
+
+	/*
+	BFS广度优先遍历算法求无权图最短路径测试	
 	*/
 	algorithm ar;
-	string code = "In computer science and information theory, a Huffman code is a particular type of optimal prefix code that is commonly used for lossless data compression. The process of finding or using such a code proceeds by means of Huffman coding, an algorithm developed by David A. Huffman while he was a Sc.D. student at MIT, and published in the 1952 paper A Method for the Construction of Minimum - Redundancy Codes.";
-	string code2 = "a";
-	ar.huffmanCode(code);
+	int **newMap = ar.genMap(6,0);
+	ar.BFS_MIN_Distance(newMap, 6, 4);
+
+	/*
+	huffman编码测试
+	*/
+	//algorithm ar;
+	//string code = "In computer science and information theory, a Huffman code is a particular type of optimal prefix code that is commonly used for lossless data compression. The process of finding or using such a code proceeds by means of Huffman coding, an algorithm developed by David A. Huffman while he was a Sc.D. student at MIT, and published in the 1952 paper A Method for the Construction of Minimum - Redundancy Codes.";
+	//string code2 = "a";
+	//ar.huffmanCode(code);
 
 	/*
 	KMP算法测试代码

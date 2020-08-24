@@ -13,6 +13,20 @@ public:
 			return *(this->vectorNode + this->vectorSize - 1);
 		}
 	};
+	//插入元素
+	bool push(T data) {
+		if (this->vectorSize == this->initSize) {
+			T *newVector = new T[this->initSize * 2];
+			for (int i = 0; i < this->vectorSize; i++) {
+				*(newVector + i) = *(this->vectorNode + i);
+			}
+			free(this->vectorNode);
+			this->vectorNode = newVector;
+			this->initSize = this->initSize * 2;
+		}
+		*(this->vectorNode + this->vectorSize++) = data;
+		return true;
+	};
 private:
 	//修改父类at()方法的访问权限
 	T at(int location) {

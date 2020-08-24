@@ -4,8 +4,107 @@
 #include "algorithm.h"
 #include "vector.h"
 #include "stack.h"
+#include "queue.h"
+#include <cstdlib>
+#include <ctime>
 #include <map>
+void algorithm::BFS_MIN_Distance(int **Graph,int length, int u) {
+	//当前结点是否被访问过
+	bool *visited = new bool[length];
+	//当前结点的路径长度
+	int *path = new int[length];
+	//当前结点的上一个结点
+	int *from = new int[length];
+	//广度优先遍历队列
+	queue<int> BFSQueue;
+	cout << "随机生成的无权图为：" << endl;
+	for (int i = 0; i < length; i++) {
+		for (int j = 0; j < length; j++) {
+			cout << Graph[i][j] << " ";
+		}
+		cout << endl;
+	}
+	for (int i = 0; i < length; i++) {
+		path[i] = INT_MAX; //初始化路径长度
+		from[i] = -1;//初始化前驱结点
+		visited[i] = false;
+	}
+	path[u] = 0;
+	visited[u] = true;
+	BFSQueue.enQueue(u);
+	while (!BFSQueue.queueEmpty()) {
+		int head = BFSQueue.deQueue();
+		for (int i = 0; i < length; i++) {
+			if (!visited[i]&&Graph[head][i]==1) {
+				path[i] = path[head] + 1;
+				from[i] = head;
+				visited[i] = true;
+				BFSQueue.enQueue(i);
+			}
+		}
+	}
+	stack<int> temp;
+	for (int i = 0; i < length; i++) {
+		if (path[i] == INT_MAX) {
+			cout << "结点" << u << "到结点" << i << "没有任何路径" << endl;
+		}
+		else {
+			cout << "结点" << u << "到结点" << i << "的路径长度为" <<path[i]<< endl;
+			int rout = i;
+			while (rout!=-1) {
+				temp.push(rout);
+				rout = from[rout];
+			}
+			while (temp.size() != 1) {
+				cout << temp.pop() << "->";
+			}
+			cout << temp.pop()<<endl;
+		}		
+	}
+	for (int i = 0; i < length; i++) {
+		delete[]Graph[i];
+	}
+	delete[] Graph;
+}
+int **algorithm::genMap(int length,int weight) {
+	int **newMap = new int*[length];
+	for (int i = 0; i < length; i++) {
+		newMap[i] = new int[length];
+	}
+	srand((int)time(0));
+	if (weight == 0) {
+		for (int i = 0; i < length; i++) {
+			for (int j = 0; j < length; j++) {
+				if (i == j) {
+					newMap[i][j] = 0;
+				}
+				else {
+					newMap[i][j] = rand() % 2 ;
+				}
+			}
+		}		
+	}
+	else {
+		for (int i = 0; i < length; i++) {
+			for (int j = 0; j < length; j++) {
+				if (i == j) {
+					newMap[i][j] = 0;
+				}
+				else {
+					newMap[i][j] = rand() % 100;
+				}
+			}
+		}
+	}
 
+	//for (int i = 0; i < length; i++) {
+	//	for (int j = 0; j < length; j++) {
+	//		cout << newMap[i][j]<<" ";
+	//	}
+	//	cout << endl;
+	//}
+	return newMap;
+}
 int algorithm::KMPsearch(string text,string pattern) {
 	if (text.length() < pattern.length()) {
 		return -1;

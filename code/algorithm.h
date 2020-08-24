@@ -25,6 +25,10 @@ public:
 	//huffman编码
 	void huffmanCode(string input);
 	void huffmanCodeGenCode(treeNode* tree, string code, map<char, string> &res);
+	//生成随机地图，weight为0为无权图，weight为1为有权图
+	int **genMap(int length,int weight);
+	//BFS查找单源最短路径,从0开始，长度为length的图，最大坐标下标为length-1
+	void BFS_MIN_Distance(int **Graph,int length, int u);
 };
 
 #endif // ! _ALGORITHM_H_
