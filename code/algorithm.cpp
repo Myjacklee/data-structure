@@ -9,6 +9,130 @@
 #include <ctime>
 #include <map>
 #include <iomanip>
+int algorithm::partition(int *arr, int low, int high) {
+	int pivot = arr[low];
+	while (low < high) {
+		while (low<high&&arr[high]>=pivot)
+			high--;
+		arr[low] = arr[high];
+		while (low < high&&arr[low] <= pivot)
+			low++;
+		arr[high] = arr[low];
+	}
+	arr[low] = pivot;
+	return low;
+}
+void algorithm::quickSort(int *arr, int low,int high) {
+	if (low < high) {
+		int mid = partition(arr, low, high);
+		quickSort(arr, low, mid - 1);
+		quickSort(arr, mid + 1, high);
+	}
+}
+void algorithm::bubbleSort(int *arr, int length) {
+	int count = 0;
+	for (int i = length - 1; i>0; i--) {
+		bool flag = false;
+		for (int j = 0; j < i-1; j++) {
+			if (arr[j] > arr[j + 1]) {
+				int temp = arr[j];
+				arr[j] = arr[j+1];
+				arr[j+1] = temp;
+				flag = true;
+			}
+		}
+		if (flag) {
+			cout << "第 " << ++count << " 趟:" ;
+			for (int i = 0; i < length; i++) {
+				if (i >= length - count) {
+					cout <<"["<<arr[i] << "] ";
+				}
+				else {
+					cout << arr[i] << " ";
+				}
+			}
+			cout << endl;		
+		}
+		else {
+			cout << "整个序列已处于有序状态，无需再遍历" << endl;
+		}
+
+	}
+	cout << "排序的结果为:";
+	for (int i = 0; i < length; i++) {
+		cout << arr[i] << " ";
+	}
+	cout << endl;
+	delete[]arr;
+}
+void algorithm::shellSort(int *arr, int length) {
+	int temp;
+	int j;
+	int count = 0;
+	for (int k = length / 2; k >= 1; k = k / 2) {
+		for (int i = k; i < length; i+=k) {
+			if (arr[i - k] > arr[i]) {
+				temp = arr[i];
+				for (j = i - k; j >= 0 && arr[j] > temp; j-=k)
+					arr[j + k] = arr[j];
+				arr[j + k] = temp;
+			}
+		}
+		cout << "第 " << ++count << " 趟(当前增量 "<<k<<" ):";
+		for (int i = 0; i < length; i++) {
+			if (i%k == 0) {
+				cout << "[" << arr[i] << "] ";
+			}
+			else {
+				cout << arr[i] << " ";
+			}
+		}
+		cout << endl;
+	}
+	cout << "排序的结果为:";
+	for (int i = 0; i < length; i++) {
+		cout << arr[i] << " ";
+	}
+	cout << endl;
+	delete[]arr;
+}
+void algorithm::directInsertSort(int *arr,int length) {
+	int temp;
+	int count = 0;
+	for (int i = 1; i < length; i++) {
+		if (arr[i] < arr[i - 1]) {
+			temp = arr[i];
+			int j;
+			for (j = i - 1; j >= 0 && arr[j] > temp; j--)
+				arr[j + 1] = arr[j];
+			arr[j + 1] = temp;
+		}
+		cout << "第 " << ++count << " 趟:";
+		for (int i = 0; i < length; i++) {
+			cout << arr[i] << " ";
+		}
+		cout << endl;
+	}
+	cout << "排序的结果为:";
+	for (int i = 0; i < length; i++) {
+		cout << arr[i] << " ";
+	}
+	cout << endl;
+	delete[]arr;
+}
+int *algorithm::genArray(int arrayLength,int range) {
+	srand((int)time(0));
+	int *a = new int[arrayLength];
+	for (int i = 0; i < arrayLength; i++) {
+		a[i] = rand()%range;
+	}
+	cout << "生成的数组为:";
+	for (int i = 0; i < arrayLength; i++) {
+		cout << a[i] << " ";
+	}
+	cout << endl;
+	return a;
+}
 void algorithm::FloydPrint(int **path,int l,int r) {
 	if (path[l][r] == -1) {
 		return;

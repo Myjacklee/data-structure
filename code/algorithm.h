@@ -37,6 +37,18 @@ public:
 	int Floyd(int **Graph, int length, int u);
 	//Floyd算法输出最短路径
 	void FloydPrint(int **path, int l, int r);
+	//随机生成长度为n的数组，范围为0到range-1
+	int *genArray(int arrayLength,int range);
+	//直接插入排序
+	void directInsertSort(int *arr,int length);
+	//希尔排序
+	void shellSort(int *arr, int length);
+	//冒泡排序
+	void bubbleSort(int *arr, int length);
+	//快速排序
+	void quickSort(int *arr, int low,int high);
+	//快速排序辅助函数
+	int partition(int *arr, int low, int high);
 };
 
 #endif // ! _ALGORITHM_H_

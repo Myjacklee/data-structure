@@ -10,11 +10,44 @@
 using namespace std;
 int main() {
 	/*
-	Floyed算法求带权图任意两点之间的最短路径
+	快速排序测试
 	*/
 	algorithm ar;
-	int **newMap = ar.genMap(20, 1);
-	ar.Floyd(newMap, 20, 4);
+	int *arr = ar.genArray(10, 100);
+	ar.quickSort(arr, 0,9);
+	cout << "排序的结果为:";
+	for (int i = 0; i < 10; i++) {
+		cout << arr[i] << " ";
+	}
+	cout << endl;
+
+	/*
+	冒泡排序测试
+	*/
+	//algorithm ar;
+	//int *arr=ar.genArray(10,100);
+	//ar.bubbleSort(arr, 10);
+
+	/*
+	希尔排序测试
+	*/
+	//algorithm ar;
+	//int *arr=ar.genArray(10,100);
+	//ar.shellSort(arr, 10);
+
+	/*
+	插入排序测试
+	*/
+	//algorithm ar;
+	//int *arr=ar.genArray(10,100);
+	//ar.directInsertSort(arr, 10);
+
+	/*
+	Floyed算法求带权图任意两点之间的最短路径
+	*/
+	//algorithm ar;
+	//int **newMap = ar.genMap(20, 1);
+	//ar.Floyd(newMap, 20, 4);
 
 	/*
 	Dijkstra求带权图最短路径测试
