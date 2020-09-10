@@ -10,16 +10,45 @@
 using namespace std;
 int main() {
 	/*
-	快速排序测试
+	简单选择排序
 	*/
 	algorithm ar;
 	int *arr = ar.genArray(10, 100);
-	ar.quickSort(arr, 0,9);
+	ar.mergeSort(arr, 0,9);
 	cout << "排序的结果为:";
 	for (int i = 0; i < 10; i++) {
 		cout << arr[i] << " ";
 	}
 	cout << endl;
+	delete[]arr;
+
+	/*
+	简单选择排序
+	*/
+	//algorithm ar;
+	//int *arr = ar.genArray(10, 100);
+	//ar.simpleChoiceSort(arr, 10);
+
+
+	/*
+	双向冒泡排序测试
+	*/
+	//algorithm ar;
+	//int *arr = ar.genArray(10, 100);
+	//ar.doubleBubbleSort(arr, 10);
+
+
+	/*
+	快速排序测试
+	*/
+	//algorithm ar;
+	//int *arr = ar.genArray(10, 100);
+	//ar.quickSort(arr, 0,9);
+	//cout << "排序的结果为:";
+	//for (int i = 0; i < 10; i++) {
+	//	cout << arr[i] << " ";
+	//}
+	//cout << endl;
 
 	/*
 	冒泡排序测试

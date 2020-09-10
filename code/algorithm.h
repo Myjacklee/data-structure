@@ -49,6 +49,14 @@ public:
 	void quickSort(int *arr, int low,int high);
 	//快速排序辅助函数
 	int partition(int *arr, int low, int high);
+	//双向冒泡排序
+	void doubleBubbleSort(int *arr, int length);
+	//简单选择排序
+	void simpleChoiceSort(int *arr, int length);
+	//归并排序
+	void mergeSort(int *arr, int left, int right);
+	//归并排序归并函数
+	void merge(int *arr, int left, int center, int right);
 };
 
 #endif // ! _ALGORITHM_H_

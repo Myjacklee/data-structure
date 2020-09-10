@@ -9,6 +9,143 @@
 #include <ctime>
 #include <map>
 #include <iomanip>
+#include <windows.h>
+void algorithm::merge(int *arr, int left, int center, int right) {
+	int *temp = new int[right - left + 1];
+	for (int i = 0; i < right-left+1; i++) {
+		temp[i] = arr[left + i];
+	}
+	int index_1_left = 0;
+	int index_1_right = center - left;
+	int index_2_left = center - left + 1;
+	int index_2_right = right - left;
+	int i = index_1_left,j = index_2_left,k = left;
+	while (i <= index_1_right && j <= index_2_right) {
+		if (temp[i] < temp[j]) {
+			arr[k++] = temp[i++];
+		}
+		else {
+			arr[k++] = temp[j++];
+		}
+	}
+	while (i <= index_1_right) {
+		arr[k++] = temp[i++];
+	}
+	while (j <= index_2_right) {
+		arr[k++] = temp[j++];
+	}
+	delete[] temp;
+}
+void algorithm::mergeSort(int *arr, int left, int right) {
+	if (left < right) {
+		int mid = (left + right) / 2;
+		mergeSort(arr, left, mid);
+		mergeSort(arr, mid + 1, right);
+		merge(arr, left, mid, right);
+	}
+}
+void algorithm::simpleChoiceSort(int *arr, int length) {
+	for (int i = 0; i < length - 1; i++) {
+		int min_index = i;
+		for (int j = i + 1; j < length; j++) {
+			if (arr[j] < arr[min_index]) {
+				min_index = j;
+			}
+			cout << "当前最小坐标:";
+			for (int q = 0; q < length; q++) {
+				if (q == min_index || q == i) {
+					if (q == j) {
+						cout << setw(8) << "([" + to_string(arr[q]) + "])";
+					}
+					else {
+						cout << setw(8) << "[" + to_string(arr[q]) + "]";
+					}
+				}
+				else {
+					if (q == j) {
+						cout << setw(8)<< "("+to_string(arr[q])+")";
+					}
+					else {
+						cout << setw(8) << arr[q];
+					}
+				}
+			}
+			cout << endl;
+			Sleep(2000);
+		}
+		int temp = arr[min_index];
+		arr[min_index] = arr[i];
+		arr[i] = temp;
+	}
+	cout << "排序的结果为:";
+	for (int i = 0; i < length; i++) {
+		cout << arr[i] << " ";
+	}
+	cout << endl;
+	delete[]arr;
+}
+void algorithm::doubleBubbleSort(int *arr, int length) {
+	int left = 0;
+	int right = length - 1;
+	int p = left;
+	bool flag=true;
+	while (left < right&&flag) {
+		flag = false;
+		while (p < right) {
+			if (arr[p] > arr[p + 1]) {
+				int temp = arr[p];
+				arr[p] = arr[p + 1];
+				arr[p + 1] = temp;
+				flag = true;
+			}
+			cout << "进行前向冒泡:";
+			for (int i = 0; i < length; i++) {
+				if (i == (p + 1) || i == p) {
+					cout <<setw(8)<< "[" + to_string(arr[i]) + "]";
+				}
+				else {
+					cout << setw(8) << arr[i];
+				}
+			}
+			cout << endl;
+			Sleep(2000);
+			p++;
+		}
+		right--;
+		p--;
+		while (p > left) {
+			if (arr[p] < arr[p - 1]) {
+				int temp = arr[p];
+				arr[p] = arr[p - 1];
+				arr[p - 1] = temp;
+				flag = true;
+			}
+			cout << "进行向后冒泡:";
+			for (int i = 0; i < length; i++) {
+				if (i == (p - 1) || i == p) {
+					cout << setw(8) << "[" + to_string(arr[i]) + "]";
+				}
+				else {
+					cout << setw(8) << arr[i];
+				}
+			}
+			cout << endl;
+			Sleep(2000);
+			p--;
+		}
+		left++;
+		p++;
+		if (!flag) {
+			cout << "当前序列已经处于有序状态，冒泡结束..." << endl;
+		}
+	}
+	cout << "排序的结果为:";
+	for (int i = 0; i < length; i++) {
+		cout << arr[i] << " ";
+	}
+	cout << endl;
+	delete[]arr;
+}
 int algorithm::partition(int *arr, int low, int high) {
 	int pivot = arr[low];
 	while (low < high) {
